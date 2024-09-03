@@ -54,13 +54,6 @@ This is an Airdrop system that validates proofs with merkle tree and sends token
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## 💻 Getting Started <a name="getting-started"></a>
-
-### Prerequisites
-
-In order to run this project you need:
-
-A Browser
 
 ### Setup
 
@@ -81,7 +74,6 @@ To run the project, execute the following command:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- PREVIEW -->
 
 <!-- AUTHORS -->
 
@@ -98,8 +90,8 @@ To run the project, execute the following command:
 
 ### 🔮 Future Features <a name="future-features"></a>
 
-- More better UI.
-- Render a list of completed tasks.
+- Create UI for better airdrop interaction.
+- Handle more complex data for merkle tree generation.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
