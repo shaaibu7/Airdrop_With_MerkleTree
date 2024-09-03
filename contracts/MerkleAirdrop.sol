@@ -21,7 +21,7 @@ contract MerkleAirdrop {
     // map address to bool to check for addresses that have claimed token
     mapping(address => bool) claimedAirdrop;    
     // event to emit when user successfully claims tokens
-    
+
     event airdropClaimedSuccessfully(address userAddress, uint256 amount);
 
     function claimAirdrop(address userAddress, uint256 amount, bytes32[] calldata merkleRootProof) external payable returns(bool) {
@@ -36,7 +36,7 @@ contract MerkleAirdrop {
 
         if (verification) {
             claimedAirdrop[userAddress] = true;
-            IERC20(tokenAddress).transfer(userAddress, amount);
+            IERC20(tokenAddress).transferFrom(userAddress, tokenAddress, amount);
             emit airdropClaimedSuccessfully(userAddress, amount);
             
         }
