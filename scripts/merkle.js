@@ -13,23 +13,16 @@ const computeHash = async (filePath) => {
         .on('data', (row) => {
             const address = row['address'];
             const amount = row['amount'];
-
-            const dataHash = `${address}, ${amount}`;
-
+            
             const hash = keccak256(address,amount);
-            // console.log(typeof hash)
 
             result.push(hash);
-            
         })
         .on('end', () => {
             resolve(result);
         
         })
-
-    })
-    
-    
+    })  
 }
 
 
@@ -44,6 +37,7 @@ let data = async () => {
                 console.log(err)
             }
         })
+        
         const levaes = result.map(item => (item));
         const tree = new MerkleTree(levaes, keccak256, { sort: true });
         const root = tree.getHexRoot();

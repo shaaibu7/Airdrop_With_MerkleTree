@@ -17,15 +17,21 @@ contract MerkleAirdrop {
     }
 
     error addressHaveClaimedAirdropAlready();
-    mapping(address => bool) claimedAirdrop;
+
+    // map address to bool to check for addresses that have claimed token
+    mapping(address => bool) claimedAirdrop;    
+    // event to emit when user successfully claims tokens
+    
     event airdropClaimedSuccessfully(address userAddress, uint256 amount);
 
     function claimAirdrop(address userAddress, uint256 amount, bytes32[] calldata merkleRootProof) external payable returns(bool) {
+        // check if userAddress has already claimed token
         if(claimedAirdrop[userAddress]) {
             revert addressHaveClaimedAirdropAlready();
         }
 
-        bytes32 leaf = keccak256(abi.encode(keccak256(abi.encode(userAddress, amount))));;
+        // verifying userAddress and amount to make sure it is part of the merkle tree
+        bytes32 leaf = keccak256(abi.encode(keccak256(abi.encode(userAddress, amount))));
         bool verification = MerkleProof.verify(merkleRootProof, merkleRoot, leaf);
 
         if (verification) {
@@ -37,5 +43,16 @@ contract MerkleAirdrop {
 
     }
 
-    function 
+    function updateContract(bytes32 _merkleRoot) external {
+        // Ensure only the owner can call this function
+        if(msg.sender == owner) {
+            // Updating merkleRoot
+            merkleRoot = _merkleRoot;
+            //Checking ERC20 token balance of the contract
+            uint256 contractRemainingTokens = IERC20(tokenAddress).balanceOf(address(this));
+            // transferring ERC20 token to owner account
+            IERC20(tokenAddress).transfer(msg.sender, contractRemainingTokens);
+
+        }
+    }
 }
