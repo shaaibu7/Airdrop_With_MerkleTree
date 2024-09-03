@@ -76,8 +76,8 @@ Install this project with:
 ### Usage
 
 To run the project, execute the following command:
-**npm install**
-**node scripts/merkle.js** to view merkle root and proofs generated from userData/userHash.json
+- npm install
+- node scripts/merkle.js -  to view merkle root and proofs generated from userData/userHash.json
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
