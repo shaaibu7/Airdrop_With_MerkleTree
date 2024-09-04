@@ -28,7 +28,7 @@ const computeHash = async (filePath) => {
 
 let data = async () => {
     try {
-        const result = await computeHash('../userData/users.csv');
+        const result = await computeHash('./userData/users.csv');
         
         // Write hashed data of addresses and amount to json file
         let data = result.join('\n');
