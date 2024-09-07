@@ -2,6 +2,7 @@ const fs = require('fs');
 const csv = require('csv-parser');
 const { keccak256 } = require('ethers');
 const { MerkleTree } = require('merkletreejs');
+const { ethers } = require('ethers');
 
 
 
@@ -14,7 +15,7 @@ const computeHash = async (filePath) => {
             const address = row['address'];
             const amount = row['amount'];
             
-            const hash = keccak256(address,amount);
+            const hash = ethers.solidityPackedKeccak256(["address", "uint256"],[address,amount]);
 
             result.push(hash);
         })

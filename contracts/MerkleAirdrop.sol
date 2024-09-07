@@ -2,6 +2,7 @@
 pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
+import "solmate/src/utils/MerkleProofLib.sol";
 import "./interfaces/IERC20.sol";
 
 
@@ -24,19 +25,19 @@ contract MerkleAirdrop {
 
     event airdropClaimedSuccessfully(address userAddress, uint256 amount);
 
-    function claimAirdrop(address userAddress, uint256 amount, bytes32[] calldata merkleRootProof) external payable returns(bool) {
+    function claimAirdrop(address userAddress, uint256 amount, bytes32[] calldata merkleRootProof) external payable returns(bool confirm_) {
         // check if userAddress has already claimed token
         if(claimedAirdrop[userAddress]) {
             revert addressHaveClaimedAirdropAlready();
         }
 
         // verifying userAddress and amount to make sure it is part of the merkle tree
-        bytes32 leaf = keccak256(abi.encode(keccak256(abi.encode(userAddress, amount))));
-        bool verification = MerkleProof.verify(merkleRootProof, merkleRoot, leaf);
+        bytes32 leaf = keccak256(abi.encodePacked(userAddress, amount));
+        confirm_ = MerkleProofLib.verify(merkleRootProof, merkleRoot, leaf);
 
-        if (verification) {
+        if (confirm_) {
             claimedAirdrop[userAddress] = true;
-            IERC20(tokenAddress).transferFrom(userAddress, tokenAddress, amount);
+            IERC20(tokenAddress).transfer(userAddress, amount);
             emit airdropClaimedSuccessfully(userAddress, amount);
             
         }
