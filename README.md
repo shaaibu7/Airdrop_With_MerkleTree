@@ -70,7 +70,8 @@ Install this project with:
 
 To run the project, execute the following command:
 - npm install
-- node scripts/merkle.js -  to view merkle root and proofs generated from userData/userHash.json
+- node scripts/merkle.js -  to view merkle root and proofs generated from `userData/users.csv`
+- Use the token contract in `contracts/Token.sol` to create ERC20 token that will be used for airdrop
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
